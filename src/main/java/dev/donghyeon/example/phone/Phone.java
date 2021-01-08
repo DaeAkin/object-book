@@ -1,16 +1,22 @@
 package dev.donghyeon.example.phone;
 
-import java.util.ArrayList;
+import dev.donghyeon.example.Money;
+
 import java.util.Collections;
 import java.util.List;
 
 
 public class Phone {
-    List<Call> calls = new ArrayList<>();
+    private final List<Call> calls;
+    private final RatePolicy ratePolicy;
 
+    public Phone(List<Call> calls, RatePolicy ratePolicy) {
+        this.calls = calls;
+        this.ratePolicy = ratePolicy;
+    }
 
     public Money calculateFee() {
-        return new Money(0);
+        return ratePolicy.calculateFee(this);
     }
 
     public List<Call> getCalls() {
