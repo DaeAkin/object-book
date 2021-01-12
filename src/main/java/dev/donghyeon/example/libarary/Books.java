@@ -1,44 +1,38 @@
 package dev.donghyeon.example.libarary;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Books {
 
-    private List<Book> books;
-
-    private Books(Book... book) {
-        books = Arrays.asList(book);
-    }
+    private final List<Book> books;
 
     private Books(List<Book> books) {
         this.books = books;
     }
 
-    public static Books from(Book... book) {
-        return new Books(book);
+    public List<Book> toList() {
+        return Collections.unmodifiableList(books);
     }
 
     public static Books from(List<Book> books) {
         return new Books(books);
     }
 
-    //TODO
-    public Books reserve(Books reserveBooks) {
-        for (Book reserveBook : reserveBooks.books) {
-            books.remove(reserveBook);
-        }
-        return new Books(this.books);
+    private Long findMaxId() {
+        return books.stream()
+                .map(Book::getId)
+                .max(Long::compareTo).orElse(0L);
+
     }
 
-    private boolean contains(Book book) {
-        return books.contains(book);
-    }
-
-    public Books add(Book book) {
-        books.add(book);
+    public Books add(BookAddRequest request) {
+        books.add(new Book(
+                findMaxId() + 1
+                ,request.getTitle()
+                ,request.getAuthor())
+        );
         return new Books(books);
     }
 
@@ -49,16 +43,10 @@ public class Books {
         return new Books(result);
     }
 
-    public Books remove(Book book) {
-        books.remove(book);
-        return new Books(books);
-    }
-
-    public Book find(Long bookId) {
+    public Optional<Book> find(String title) {
         return books.stream()
-                .filter(book -> book.getId().equals(bookId))
-                .findFirst()
-                .orElse(new Book());
+                .filter(book -> book.getTitle().equals(title))
+                .findFirst();
     }
 
     public Stream<Book> stream() {
