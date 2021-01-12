@@ -7,6 +7,12 @@ import java.util.List;
 public class BookRepositoryImpl implements BookRepository{
     private static final String BOOKS_TXT = "books.txt";
 
+    private final PersistStrategy persistStrategy;
+
+    public BookRepositoryImpl(PersistStrategy persistStrategy) {
+        this.persistStrategy = persistStrategy;
+    }
+
     @Override
     public Books findAllBooks() {
         return readTxtFile();
@@ -25,7 +31,7 @@ public class BookRepositoryImpl implements BookRepository{
         try(FileWriter writer = new FileWriter(file.getAbsolutePath(), false);
             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
             for (Book book: bookList) {
-                bufferedWriter.write(book.toPersist());
+                bufferedWriter.write(persistStrategy.getCombinatedBook(book));
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
@@ -51,7 +57,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     private Book getBook(String str) {
-        String[] split = str.split(",");
+        String[] split = str.split(persistStrategy.getSeparator());
         Long bookNumber = Long.parseLong(split[0]);
         String title = split[1];
         String author = split[2];
