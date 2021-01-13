@@ -26,7 +26,7 @@ public class BookRepositoryImpl implements BookRepository{
 
     private void writeTxtFile(Books books) {
         File file = new File(BOOKS_TXT);
-        final List<Book> bookList = books.toList();
+        final List<Book> bookList = books.getList();
 
         try(FileWriter writer = new FileWriter(file.getAbsolutePath(), false);
             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {

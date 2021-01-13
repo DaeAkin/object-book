@@ -12,7 +12,7 @@ public class Books {
         this.books = books;
     }
 
-    public List<Book> toList() {
+    public List<Book> getList() {
         return Collections.unmodifiableList(books);
     }
 
@@ -28,12 +28,13 @@ public class Books {
     }
 
     public Books add(BookAddRequest request) {
-        books.add(new Book(
+        List<Book> list = new ArrayList<>(books);
+        list.add(new Book(
                 findMaxId() + 1
                 ,request.getTitle()
                 ,request.getAuthor())
         );
-        return new Books(books);
+        return new Books(list);
     }
 
     public Books remove(Long bookId) {
