@@ -9,6 +9,8 @@ public class BookPrinter {
     private static final String SEARCH_BOOK_MESSAGE = "찾고 싶은 책 이름을 입력하세요.";
     private static final String DELETE_BOOK_MESSAGE = "삭제 하고 싶은 책 ID를 입력하세요.";
     private static final String GUIDE_MESSAGE = "1.책 추가 2.책 삭제 3.책 검색 (X 입력 시 프로그램 종료)";
+    private static final String EMPTY_RESULT = "검색 결과가 없습니다.";
+
 
 
     private BookPrinter() {}
@@ -41,6 +43,11 @@ public class BookPrinter {
     public static void printGuideMessage() {
         System.out.println(GUIDE_MESSAGE);
     }
+
+    public static void printNotFoundBookMessage() {
+        System.out.println(EMPTY_RESULT);
+    }
+
 
 
 }

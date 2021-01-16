@@ -1,6 +1,5 @@
 package dev.donghyeon.example.libarary;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 public class BookService {
@@ -49,8 +48,9 @@ public class BookService {
         BookPrinter.printFindBook();
         String bookString = scanner.nextLine();
 
-        final Optional<Book> book = books.find(bookString);
-        book.ifPresent(BookPrinter::printBook);
+        books.find(bookString)
+                .ifPresentOrElse(BookPrinter::printBook,
+                        BookPrinter::printNotFoundBookMessage);
     }
 
     private Books removeBook(Scanner scanner, Books books) {
