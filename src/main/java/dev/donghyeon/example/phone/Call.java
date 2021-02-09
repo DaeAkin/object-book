@@ -5,23 +5,21 @@ import java.time.LocalDateTime;
 
 public class Call {
 
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private final DateTimeInterval interval;
 
     public Call(LocalDateTime start, LocalDateTime end) {
-        this.start = start;
-        this.end = end;
+        this.interval = DateTimeInterval.of(start,end);
     }
 
     public LocalDateTime getStart() {
-        return start;
+        return interval.getFrom();
     }
 
     public LocalDateTime getEnd() {
-        return end;
+        return interval.getTo();
     }
 
     public Duration getDuration() {
-        return Duration.between(start,end);
+        return interval.duration();
     }
 }
