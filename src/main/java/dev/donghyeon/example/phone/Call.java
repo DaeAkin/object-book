@@ -2,6 +2,7 @@ package dev.donghyeon.example.phone;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Call {
 
@@ -21,5 +22,9 @@ public class Call {
 
     public Duration getDuration() {
         return interval.duration();
+    }
+
+    public List<DateTimeInterval> splitByDay() {
+        return interval.splitByDay();
     }
 }

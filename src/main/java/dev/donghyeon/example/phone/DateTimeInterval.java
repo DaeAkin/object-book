@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class DateTimeInterval {
     private LocalDateTime from;
@@ -46,6 +47,26 @@ public class DateTimeInterval {
     public LocalDateTime getTo() {
         return to;
     }
+
+
+    public List<DateTimeInterval> splitByDay() {
+        return null;
+    }
+
+    private void addFirstDay(List<DateTimeInterval> result) {
+        result.add(DateTimeInterval.toMidnight(from));
+    }
+
+    private void addMiddleDays(List<DateTimeInterval> result, int days) {
+        for(int loop=1; loop < days; loop++) {
+            result.add(DateTimeInterval.during(from.toLocalDate().plusDays(loop)));
+        }
+    }
+
+    private void addLastDay(List<DateTimeInterval> result) {
+        result.add(DateTimeInterval.fromMidnight(to));
+    }
+
 
 
 }
