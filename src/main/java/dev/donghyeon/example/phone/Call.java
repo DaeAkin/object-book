@@ -24,6 +24,10 @@ public class Call {
         return interval.duration();
     }
 
+    public DateTimeInterval getInterval() {
+        return interval;
+    }
+
     public List<DateTimeInterval> splitByDay() {
         return interval.splitByDay();
     }

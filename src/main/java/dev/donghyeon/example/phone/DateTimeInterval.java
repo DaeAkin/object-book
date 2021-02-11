@@ -1,11 +1,9 @@
 package dev.donghyeon.example.phone;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.ArrayList;
 import java.util.List;
-
+//시간대별 방식 요금제를 구현하기 위한 클래스
 public class DateTimeInterval {
     private LocalDateTime from;
     private LocalDateTime to;
@@ -50,7 +48,23 @@ public class DateTimeInterval {
 
 
     public List<DateTimeInterval> splitByDay() {
-        return null;
+        if (days() > 1) {
+            return splitByDay(days());
+        }
+        return List.of(this);
+    }
+    // human readable 하게 당일이면 day = 1 로 반환해준다.
+    private int days() {
+        return Period.between(from.toLocalDate(),to.toLocalDate())
+                .plusDays(1)
+                .getDays();
+    }
+    private List<DateTimeInterval> splitByDay(int days) {
+        List<DateTimeInterval> result = new ArrayList<>();
+        addFirstDay(result);
+        addMiddleDays(result,days);
+        addLastDay(result);
+        return result;
     }
 
     private void addFirstDay(List<DateTimeInterval> result) {

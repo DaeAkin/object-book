@@ -2,7 +2,7 @@ package dev.donghyeon.example.phone.client;
 
 import dev.donghyeon.example.Money;
 import dev.donghyeon.example.phone.*;
-import dev.donghyeon.example.phone.basic.RegularPolicy;
+import dev.donghyeon.example.phone.basic.FixedFeePolicy;
 import dev.donghyeon.example.phone.option.RateDiscountablePolicy;
 
 import java.time.Duration;
@@ -19,7 +19,7 @@ public class PhoneClient {
 
          Phone regularPhone = new Phone(calls,
                  new RateDiscountablePolicy(Money.won(0),
-                         new RegularPolicy(Money.won(50),Duration.ofMinutes(1))));
+                         new FixedFeePolicy(Money.won(50),Duration.ofMinutes(1))));
 
          final Money money = regularPhone.calculateFee();
 
