@@ -6,11 +6,11 @@ import dev.donghyeon.example.Money;
 
 import java.time.Duration;
 
-public class RegularPolicy extends BasicPolicy {
+public class FixedFeePolicy extends BasicPolicy {
     private final Money amounts;
     private final Duration seconds;
 
-    public RegularPolicy(Money amounts, Duration seconds) {
+    public FixedFeePolicy(Money amounts, Duration seconds) {
         this.amounts = amounts;
         this.seconds = seconds;
     }
